@@ -121,7 +121,7 @@ module MakeInterval (Endpoint : ORDERED_TYPE) =
       | Interval (low, high) -> 
           Endpoint.compare x low >= 0
           && Endpoint.compare x high <= 0
-      (*)
+      (*
       | Interval (a, b) -> x >= a && x <= b
       *)
 
@@ -155,7 +155,7 @@ module INT =
 
 module IntInterval = MakeInterval (INT);;
 
-(*)
+(*
 module IntInterval = MakeInterval (
   struct 
     type t = int 
