@@ -116,14 +116,28 @@ module MakeStack (Element: SERIALIZE) : (STACK with type element = Element.t) =
     let pop (s : stack) : stack =
       snd (pop_helper s)
 
+    let map : (element -> element) -> stack -> stack = 
+      List.map
+    (*
     let map (f : element -> element) (s : stack) : stack =
       List.map f s
+    *)
 
+    (*
     let filter (f : element -> bool) (s : stack) : stack =
       List.filter f s
+    *)
 
+    let filter : (element -> bool) -> stack -> stack =
+      List.filter
+
+    let fold_left : ('a -> element -> 'a) -> 'a -> stack -> 'a = 
+      List.fold_left 
+
+    (*
     let fold_left (f : 'a -> element -> 'a) (init : 'a) (s : stack) : 'a =
       List.fold_left f init s
+    *)
 
     let serialize (s : stack) : string =
       let string_join x y = Element.serialize y ^ (if x <> "" then " : " ^ x else "") in 
