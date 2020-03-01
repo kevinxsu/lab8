@@ -147,14 +147,19 @@ module MakeInterval (Endpoint : ORDERED_TYPE) =
 Exercise 1B: Using the completed functor above, instantiate an integer
 interval module.
 ......................................................................*)
+(*
 module INT =
   struct 
     type t = int 
     let compare = Stdlib.compare 
   end;;
+*)
 
-module IntInterval = MakeInterval (INT);;
-
+module IntInterval = 
+  MakeInterval (struct
+                  type t = int
+                  let compare = Stdlib.compare
+                end) ;;
 (*
 module IntInterval = MakeInterval (
   struct 
@@ -220,8 +225,9 @@ INTERVAL signature. (Much of the implementation can be copied from
 MakeInterval above.) **Don't forget to specify the module type.**
 ......................................................................*)
 
-module MakeSafeInterval (Endpoint : ORDERED_TYPE) =
+module MakeSafeInterval (Endpoint : ORDERED_TYPE) : INTERVAL=
   struct
+    type endpoint = Endpoint.t
     type interval =
       | Interval of Endpoint.t * Endpoint.t
       | Empty
@@ -279,7 +285,11 @@ Exercise 2C: Create an IntSafeInterval module using the new
 MakeSafeInterval functor.
 ......................................................................*)
 
-module IntSafeInterval = MakeSafeInterval(INT);;
+module IntSafeInterval = 
+  MakeSafeInterval(struct
+                    type t = int
+                    let compare = Stdlib.compare
+                  end) ;;
 
 (* Now, try evaluating the following expression in the REPL:
 
@@ -379,4 +389,8 @@ instead?
     IntBestInterval.is_empty (IntBestInterval.Interval (4, 3)) ;;
 ......................................................................*)
 
-module IntBestInterval = MakeBestInterval(INT) ;;
+module IntBestInterval = 
+  MakeBestInterval(struct
+                    type t = int
+                    let compare = Stdlib.compare
+                  end) ;;  
