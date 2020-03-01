@@ -127,7 +127,6 @@ module MakeStack (Element: SERIALIZE) : (STACK with type element = Element.t) =
     let filter (f : element -> bool) (s : stack) : stack =
       List.filter f s
     *)
-
     let filter : (element -> bool) -> stack -> stack =
       List.filter
 
@@ -179,12 +178,14 @@ two elements might be serialized as the string
 For this oversimplified serialization function, you may assume that
 the string will be made up of alphanumeric characters only.
 ......................................................................*)
-module IntStringSerialize : (SERIALIZE with type t = (int * string))= 
+(*module IntStringSerialize : (SERIALIZE with type t = (int * string)) =*) 
+module IntStringSerialize =
   struct 
    type t = (int * string) 
    let serialize (n, s) = 
     "(" ^ string_of_int n ^ ",'" ^ s ^ "')"
   end ;;
 
-module IntStringStack : (STACK with type element = IntStringSerialize.t)= 
+(*module IntStringStack : (STACK with type element = IntStringSerialize.t) = *)
+module IntStringStack =
   MakeStack(IntStringSerialize) ;;
