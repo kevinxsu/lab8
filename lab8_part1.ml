@@ -107,7 +107,7 @@ module MakeInterval (Endpoint : ORDERED_TYPE) =
 
     (* is_empty intvl -- Returns true if and only if `intvl` is
        empty *)
-    let isEmpty (intvl : interval) : bool =
+    let is_empty (intvl : interval) : bool =
       match intvl with
       | Empty -> true
       | Interval _ -> false 
@@ -208,7 +208,7 @@ module type INTERVAL =
     type interval
     type endpoint
     val create : endpoint -> endpoint -> interval
-    val isEmpty : interval -> bool
+    val is_empty : interval -> bool
     val contains : interval -> endpoint -> bool
     val intersect : interval -> interval -> interval
   end ;;
@@ -336,7 +336,7 @@ module MakeBestInterval (Endpoint : ORDERED_TYPE)
       if Endpoint.compare low high > 0 then Empty
       else Interval (low, high)
 
-    let isEmpty (intvl : interval) : bool = 
+    let is_empty (intvl : interval) : bool = 
       match intvl with
       | Empty -> true
       | Interval _ -> false
